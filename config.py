@@ -8,5 +8,6 @@ class DefaultConfig(object):
     lr = 0.0001 # 学习率
     nepoch = 10 # 训练次数
     use_gpu = False # gpu优化
+    N = 10 # 随机测试N张图片
 
 opt = DefaultConfig()

@@ -11,7 +11,7 @@ from tqdm import tqdm
 def train():
     datafile = CVDD('train', opt.dataset_dir)
     # 用PyTorch的DataLoader类封装
-    # 实现数据集顺序打乱，多线程读取，一次取多个数据等效果
+    # 实现数据集顺序打乱，多线程读取，一次取多个数据等效果，读数据比较费时间
     dataloader = DataLoader(datafile, batch_size=opt.batch_size, shuffle=True, num_workers=opt.workers)
 
     print('Dataset loaded! length of train set is {0}'.format(len(datafile)))
@@ -35,7 +35,7 @@ def train():
                 img, label = img.cuda(), label.cuda()
 
             out = model(img)  # 计算网络输出值，就是输入网络一个图像数据，输出猫和狗的概率，调用了网络中的forward()方法
-            loss = criterion(out, label.squeeze())  # 计算损失，也就是网络输出值和实际label的差异，显然差异越小说明网络拟合效果越好，此处需要注意的是第二个参数，必须是一个1维Tensor
+            loss = criterion(out, label.squeeze())  # 计算损失，也就是网络输出值和实际label的差异，显然差异越小说明网络拟合效果越好，此处需要注意的是第二个参数，必须是一个1维Tensor，所以使用squeeze方法
             loss.backward()  # 误差反向传播，采用求导的方式，计算网络中每个节点参数的梯度，显然梯度越大说明参数设置不合理，需要调整
 
             optimizer.step()  # 优化采用设定的优化方法对网络中的各个参数进行调整
