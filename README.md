@@ -1,7 +1,5 @@
 # 猫狗大战
 
-# 猫狗大战
-
 ### 题目来源
 
 **2014年的Kaggle竞赛**[Dogs vs. Cats](https://www.kaggle.com/c/dogs-vs-cats/overview)
