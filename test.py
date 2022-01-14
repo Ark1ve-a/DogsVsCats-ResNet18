@@ -22,7 +22,7 @@ def test():
     model.eval() # 设定为评估模式，计算过程不要dropout
 
     # get data
-    files = random.sample(os.listdir(opt.test_data_dir), opt.N)
+    files = random.sample(os.listdir(opt.test_data_dir), opt.N) # 随机加载N个图片做测试
     imgs = []  # 原始图片，用来plt.imshow(imgs[index])
     imgs_data = []  # 训练图片，dataTransform(img)
     for file in files:
@@ -34,10 +34,10 @@ def test():
         imgs_data = imgs_data.cuda()
 
     # calculation
-    # 对资源闭合访问，进行必要的清理（close等操作）
+    # with可以对资源闭合访问，进行必要的清理（close等操作）
     with torch.no_grad(): # 不自动求导
         out = model(imgs_data)
-    out = F.softmax(out, dim=1) # 将分类结果转换为[0, 1]的概率
+    out = F.softmax(out, dim=1) # 将分类结果转换为[0, 1]的概率，dim=1表示让第一个维度的数据之和等于1
     out = out.data.cpu().numpy()
 
     # 展示测试图片以及预测结果
